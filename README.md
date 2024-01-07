@@ -1,1 +1,1 @@
-# Building-Distributed-Applications-in-Gin
+# Building-Distributed-Storage-System-in-Go

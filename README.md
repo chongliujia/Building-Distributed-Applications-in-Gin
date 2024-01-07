@@ -1,1 +1,1 @@
-# Building-Distributed-Storage-System-in-Go
+# Practice-in-Go

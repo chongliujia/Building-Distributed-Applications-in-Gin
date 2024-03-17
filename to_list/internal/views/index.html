@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Application</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Optional Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">To-Do List</h1>
+    <div class="row">
+        <div class="col-12">
+            <ul id="todo-list" class="list-group mb-4"></ul>
+            <div class="input-group mb-3">
+                <input type="text" id="todo-input" class="form-control" placeholder="Add a new task...">
+                <div class="input-group-append">
+                    <button onclick="addTodo()" class="btn btn-outline-primary" type="button">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript functions to interact with the backend
+  function fetchTodos() {
+    fetch('/api/todos')
+        .then(response => response.json())
+        .then(data => {
+            // 使用获取到的数据更新你的前端界面
+        });
+  }
+
+  function addTodo() {
+    const todoInput = document.getElementById('todo-input');
+    const title = todoInput.value;
+    todoInput.value = ''; // 清空输入框
+
+    fetch('/api/todos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: title, done: false }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 更新前端界面
+    });
+}
+
+
+</script>
+
+</body>
+</html>
+

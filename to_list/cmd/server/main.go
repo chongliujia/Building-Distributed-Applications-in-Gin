@@ -1,19 +1,22 @@
 package main
 
 import (
-    "log"
     "net/http"
-    "to_list/internal/api"
+    "path/filepath"
+    api "to_list/internal/handlers"
+    "log"
 )
 
 func main() {
-    http.HandleFunc("/todos", api.ListTodosHandler)
-    http.HandleFunc("/add", api.AddTodoHandler)
+    static_path := filepath.Join("internal", "views")
+    static_handler := http.FileServer(http.Dir(static_path))
 
-    port := ":8080"
-    log.Printf("Server starting on port %s\n", port)
+    http.Handle("/", static_handler)
 
-    if err := http.ListenAndServe(port, nil); err != nil {
-        log.Fatalf("Failed to start server: %v", err)
-    }
+    http.HandleFunc("/api/todos", api.TodosHandler)
+
+    log.Println("Server starting on port 8080...")
+    if err := http.ListenAndServe(":8080", nil); err != nil {
+        log.Fatal(err)
+    } 
 }
